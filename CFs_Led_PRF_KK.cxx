@@ -1,4 +1,4 @@
-//------ Luda's version ----------------
+/------ Luda's version ----------------
 // Correlation Functions CF(k*) with QS+FSI weights calculating by R.Lednicky's code 
 //You have to compile it using MakeFile
 // make
@@ -14,13 +14,11 @@
 #include <TString.h>
 #include <TMath.h>
 #include <TH1D.h>
-#include <TDatabasePDG.h> //
-#include <TParticlePDG.h> //Тема, связанная с моделирование и реальными данными. Частица - физическая срзау дана в этом. База для частиц
+#include <TDatabasePDG.h>
+#include <TParticlePDG.h>
 #include <iostream>
 #include <fstream>
-#include "WLedCOMMONS.h" //код для корелляционной функции
-
-//PIFI, geant и проч. Не весь набор частиц может персдатвлен в наборе чатсиц pdg.
+#include "WLedCOMMONS.h"
 
 #include <iostream>
 #include <cmath>
@@ -28,7 +26,7 @@
 #include <cstdio>
 #include <complex>
 #include <cstring>
-using namespace std; //С+
+using namespace std;
 
 #ifndef precision
 #define precision 1e-8;
@@ -44,7 +42,7 @@ using namespace std; //С+
 #include "TMath.h"
 
 extern "C" void   fsiini_();
-extern "C" void   ltran12_();   //fortran adaptation
+extern "C" void   ltran12_();
 extern "C" void   fsiw_();
 extern FSICONSCommon FSICONS;
 extern LEDWEIGHTCommon LEDWEIGHT;
@@ -57,44 +55,32 @@ extern FSIPRFCommon FSIPRF;
 
 
 const double HBARC=0.1973269602; //1/HBARC fm->GeV-1
-double pi=3.14159265358979323844; // actualisation of pi and other constants
+double pi=3.14159265358979323844;
 
 
 const int NPT = 1 ;
 const int NEVPACK = 1, NBINS = 8 ;
  
-int main() // We work here
+int main()
 {
                                                                                                
 
-   TH1D *hCFnom; //correlation function histogram - free name for every histogram.
-   TH1D *hCFden; // 1-dimensional histogram of double-variable, *-we initiliaze it here
+   TH1D *hCFnom;
+   TH1D *hCFden;
    TH1D *hCF;
    TH1D *hCFP ;                                                                                                              
    TH1D *HNum2 ;     
    
    //pp
-   //int nbins=150; //corellation function - nominator/denominator. X-axis. 
+   //int nbins=150;
    //double qmin=0.0;
    //double qmax=1.5;
  
  //PbPb
    int nbins=100;
-   double qmin=0.0; 
+   double qmin=0.0;
    double qmax=0.9;
-// void part1(){
-//1
-//2
-//}
-//void part2(){ - they are defined 
-//3
-//4
-//} 
-  // example of calibration 
-//1)TH1D *hCFnom;
-//hCFnom  = new TH1D("hCFnom","hCFnom",nbins,qmin,qmax);
-
-//2) TH1D *hCFnom = new TH1D("hCFnom","hCFnom",nbins,qmin,qmax);
+   
    
    
    //hCFnom  = new TH1D("hCFnom","hCFnom",150,0.,1.5);
@@ -104,12 +90,12 @@ int main() // We work here
    //HNum2=   new TH1D("HNum2","HNum2",150,0.,1.5);     
      hCFnom  = new TH1D("hCFnom","hCFnom",nbins,qmin,qmax);
      hCFden  = new TH1D("hCFden","hCFden",nbins,qmin,qmax);
-     hCF  = new TH1D("hCF","hCF",nbins,qmin,qmax); //root histogram configuration
+     hCF  = new TH1D("hCF","hCF",nbins,qmin,qmax);
      hCFP    = new TH1D("hCFP","hCFP",nbins,qmin,qmax);  
      HNum2=   new TH1D("HNum2","HNum2",nbins,qmin,qmax);      
 
 
-  const Int_t kMax = 1000000; //number of events
+  const Int_t kMax = 1000000;
 
 
   int nqmax,icthetamin;
@@ -127,9 +113,9 @@ int main() // We work here
 
 
 //Source size in fm
-  Rgauss[1]=5.0; //out x
-  Rgauss[2]=5.0; //side   y        //The size of corellation source, We have spherical region that has connected particles. When two partciles collide. We define the size of sphere.
-  Rgauss[3]=5.0; //long z - along 
+  Rgauss[1]=5.0; //out
+  Rgauss[2]=5.0; //side
+  Rgauss[3]=5.0; //long
   zoffset=0.;
 
 
@@ -144,20 +130,20 @@ int main() // We work here
   //   NS=2  same as NS=4 but the approx. of equal emission times in PRF
   //         not required (t=0 approx. used in all other cases).
 
-   FSINS.NS=4; 
+   FSINS.NS=4;
    
  // Switch for automatic setting of all parameters (0)
  //ITEST=1 any values of parameters ICH, IQS, ISI, I3C are allowed
 //ITEST=0 physical values of these parameters are put automatically
    LEDWEIGHT.ITEST=1;
     //  Swith for Couloumb interaction in the pair
-    FSINS.ICH =0; // couloumb interaction 
+    FSINS.ICH =1;
     // Switches strong interactions
-    FSINS.ISI=0; 
+    FSINS.ISI=0;
     // Switch for quantum statistics
-    FSINS.IQS=1; // for the same particles
+    FSINS.IQS=0;
     //Switches couloumb interaction with residual nucleus 
-    FSINS.I3C=0; 
+    FSINS.I3C=0;
 
   //initial parameters of model
  //if(fRandomPosition)
@@ -178,19 +164,7 @@ int main() // We work here
   
   
   
-    FSINS.LL = 1; 
-//FSINS.LL = 9; 
-//pdg codes of particles pair
-
- Int_t N = 2;
- Int_t Z =1; TDatabasePDG* dbPDG = TDatabasePDG::Instance();
- Int_t ID= 1000000000 + Z*10000 + N*10; dbPDG->AddParticle("d", "d",  1.875612  , kTRUE, 0, 1, "Fragment", ID);
- if (dbPDG->GetParticle(ID)) dbPDG->GetParticle(ID)->Print();
- //1000010020 или 700201    Int_t pdg1= 2212;//211;
-    Int_t pdg2= 1000010020;  //3312;//321;//2212;//321;//3312; //700201;
-     TParticlePDG* tpart1 = TDatabasePDG::Instance()->GetParticle(pdg1);
-    TParticlePDG* tpart2 = TDatabasePDG::Instance()->GetParticle(pdg2);
-    double mass1=tpart1->Mass();    double mass2=tpart2->Mass();
+    FSINS.LL = 15; 
 
 //pdg codes of particles pair
 
@@ -287,7 +261,7 @@ int main() // We work here
 
 
 
- TFile outputFile("histo_kk.root", "RECREATE"); //rename the needed file in the directory
+ TFile outputFile("histo_kk.root", "RECREATE");
  
 
   // for(int ipt=0; ipt<NPT; ipt++)
