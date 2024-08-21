@@ -141,7 +141,7 @@ int main()
     // Switches strong interactions
     FSINS.ISI=0;
     // Switch for quantum statistics
-    FSINS.IQS=0;
+    FSINS.IQS=1;
     //Switches couloumb interaction with residual nucleus 
     FSINS.I3C=0;
 
@@ -164,7 +164,7 @@ int main()
   
   
   
-    FSINS.LL = 15; 
+    FSINS.LL = 4; 
 
 //pdg codes of particles pair
 
@@ -261,7 +261,7 @@ int main()
 
 
 
- TFile outputFile("histo_kk.root", "RECREATE");
+ TFile outputFile("alpha.root", "RECREATE");
  
 
   // for(int ipt=0; ipt<NPT; ipt++)
