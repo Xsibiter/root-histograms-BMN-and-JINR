@@ -1,4 +1,4 @@
-/------ Luda's version ----------------
+//------ Luda's version ----------------
 // Correlation Functions CF(k*) with QS+FSI weights calculating by R.Lednicky's code 
 //You have to compile it using MakeFile
 // make
