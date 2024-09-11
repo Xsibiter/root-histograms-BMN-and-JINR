@@ -114,8 +114,8 @@ int main()
 
 //Source size in fm
   Rgauss[1]=5.0; //out
-  Rgauss[2]=5.0; //side
   Rgauss[3]=5.0; //long
+  Rgauss[2]=5.0; //side
   zoffset=0.;
 
 
@@ -139,7 +139,7 @@ int main()
     //  Swith for Couloumb interaction in the pair
     FSINS.ICH =1;
     // Switches strong interactions
-    FSINS.ISI=0;
+    FSINS.ISI=1;
     // Switch for quantum statistics
     FSINS.IQS=1;
     //Switches couloumb interaction with residual nucleus 
@@ -164,7 +164,7 @@ int main()
   
   
   
-    FSINS.LL = 4; 
+    FSINS.LL = 2; 
 
 //pdg codes of particles pair
 
