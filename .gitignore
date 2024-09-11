@@ -1,0 +1,4 @@
+# ignore command files
+*.f
+*.F
+*.o
