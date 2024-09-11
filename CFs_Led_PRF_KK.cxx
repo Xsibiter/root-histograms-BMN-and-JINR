@@ -113,9 +113,9 @@ int main()
 
 
 //Source size in fm
-  Rgauss[1]=5.0; //out
-  Rgauss[3]=5.0; //long
-  Rgauss[2]=5.0; //side
+  Rgauss[1]=2.0; //out
+  Rgauss[3]=2.0; //long
+  Rgauss[2]=2.0; //side
   zoffset=0.;
 
 
@@ -261,7 +261,7 @@ int main()
 
 
 
- TFile outputFile("alpha.root", "RECREATE");
+ TFile outputFile("p-p(2.0).root", "RECREATE");
  
 
   // for(int ipt=0; ipt<NPT; ipt++)
