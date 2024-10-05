@@ -113,9 +113,9 @@ int main()
 
 
 //Source size in fm
-  Rgauss[1]=2.0; //out
-  Rgauss[3]=2.0; //long
-  Rgauss[2]=2.0; //side
+  Rgauss[1]=1.5; //out
+  Rgauss[3]=1.5; //long
+  Rgauss[2]=1.5; //side
   zoffset=0.;
 
 
@@ -137,9 +137,9 @@ int main()
 //ITEST=0 physical values of these parameters are put automatically
    LEDWEIGHT.ITEST=1;
     //  Swith for Couloumb interaction in the pair
-    FSINS.ICH =1;
+    FSINS.ICH =0;
     // Switches strong interactions
-    FSINS.ISI=1;
+    FSINS.ISI=0;
     // Switch for quantum statistics
     FSINS.IQS=1;
     //Switches couloumb interaction with residual nucleus 
@@ -261,7 +261,7 @@ int main()
 
 
 
- TFile outputFile("p-p(2.0).root", "RECREATE");
+ TFile outputFile("p-p(1.5)qs.root", "RECREATE");
  
 
   // for(int ipt=0; ipt<NPT; ipt++)
